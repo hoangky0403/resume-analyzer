@@ -50,6 +50,8 @@ Push the repository to Hugging Face Spaces
 Add your GOOGLE_API_KEY in Settings → Secrets
 
 Hugging Face will automatically build and launch the app
+<img width="959" height="454" alt="image" src="https://github.com/user-attachments/assets/f27609a3-2d2c-44dc-a20f-0374abf0dcdd" />
+
 
 📦 Requirements
 
