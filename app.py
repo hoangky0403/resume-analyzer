@@ -1,7 +1,6 @@
 import os
 import streamlit as st
 from PIL import Image
-#import google.generativeai as genai
 from pdf2image import convert_from_path
 import pytesseract
 import pdfplumber
@@ -131,4 +130,5 @@ if uploaded_file:
 #Footer
 st.markdown("---")
 st.markdown("""<p style= 'text-align: center;' >Powered by <b>Streamlit</b> and <b>Google Gemini AI</b> | Developed by <a href="https://www.linkedin.com/in/ky-kate-nguyen/"  target="_blank" style='text-decoration: none; color: #000000'><b>Ky Nguyen</b></a></p>""", unsafe_allow_html=True)
+
 
