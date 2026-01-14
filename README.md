@@ -2,7 +2,7 @@
 
 Analyze your resume and match it with job descriptions using Google Gemini AI.
 This app extracts text from PDF resumes (both text-based and scanned) and provides tailored feedback on skills, improvements, and career recommendations.
-
+Link to Streamlit app: https://huggingface.co/spaces/lovelymumu/Resume_Analyzer
 ✨ Features
 
 Upload resume in PDF format (supports both text-based & scanned PDFs)
