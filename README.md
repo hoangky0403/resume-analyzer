@@ -53,23 +53,20 @@ Hugging Face will automatically build and launch the app
 <img width="959" height="454" alt="image" src="https://github.com/user-attachments/assets/f27609a3-2d2c-44dc-a20f-0374abf0dcdd" />
 
 
-📦 Requirements
+# Requirements
 
-Streamlit
+pdf2image==1.17.0
+pdfplumber==0.11.4
+pytesseract==0.3.13
+python-dotenv==1.0.1
+streamlit==1.32.0
+google-generativeai>=0.7.2
 
-python-dotenv
+# Packages
+poppler-utils
+tesseract-ocr
 
-Pillow
-
-google-generativeai
-
-pdf2image
-
-pytesseract
-
-pdfplumber
-
-👩‍💻 Author
+# Author
 
 Developed by Ky Nguyen
 Powered by Streamlit and Google Gemini AI
