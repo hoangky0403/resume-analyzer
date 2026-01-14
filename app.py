@@ -1,15 +1,22 @@
 import os
 import streamlit as st
 from PIL import Image
-import google.generativeai as genai
+#import google.generativeai as genai
 from pdf2image import convert_from_path
 import pytesseract
 import pdfplumber
+import google.generativeai as genai
 
 
-# Configure Google Gemini AI by directly accessing the secrets
-genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
-
+api_key = os.getenv("GOOGLE_API_KEY")
+if not api_key:
+    # Try getting it from Streamlit secrets (best for deployment)
+    try:
+        api_key = st.secrets["GOOGLE_API_KEY"]
+    except:
+        st.error("Google API Key is missing. Please set it in secrets or environment variables.")
+        st.stop()
+genai.configure(api_key=api_key)
 
 # Function to extract text from PDF
 def extract_text_from_pdf(pdf_path):
@@ -47,34 +54,34 @@ def extract_text_from_pdf(pdf_path):
 def analyze_resume(resume_text, job_description=None):
     if not resume_text:
         return {"error": "Resume text is required for analysis."}
-    
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    
-    base_prompt = f"""
-    You are an experienced HR with Technical Experience in the field of any one job role from Data Science, Data Analyst, Big Data Engineering, Finance Analyst your task is to review the provided resume.
-    Please share your professional evaluation on whether the candidate's profile aligns with the role.Also suggest some course they might take to improve the skills.Highlight the strengths and weaknesses.
 
-    Resume:
-    {resume_text}
-    """
-
-
-    if job_description:
-        base_prompt += f"""
-        Additionally, compare this resume to the following job description:
+    try:
+        model = genai.GenerativeModel("gemini-2.5-flash")
         
-        Job Description:
-        {job_description}
         
-        Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements.
+        base_prompt = f"""
+        You are an experienced HR with Technical Experience in the field of any one job role from Data Science, Data Analyst, Big Data Engineering, Finance Analyst your task is to review the provided resume.
+        Please share your professional evaluation on whether the candidate's profile aligns with the role.Also suggest some course they might take to improve the skills.Highlight the strengths and weaknesses.
+        Resume:
+        {resume_text}
         """
-
-
-    response = model.generate_content(base_prompt)
-
-
-    analysis = response.text.strip()
-    return analysis
+    
+    
+        if job_description:
+            base_prompt += f"""
+            Additionally, compare this resume to the following job description:
+            
+            Job Description:
+            {job_description}
+            
+            Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements.
+            """
+    
+    
+        response = model.generate_content(base_prompt)
+        return response.text.strip()
+    except Exception as e:
+        return f"Error analyzing resume: {e}"
 
 
 
@@ -123,5 +130,5 @@ if uploaded_file:
 
 #Footer
 st.markdown("---")
-st.markdown("""<p style= 'text-align: center;' >Powered by <b>Streamlit</b> and <b>Google Gemini AI</b> | Developed by <a href="https://www.linkedin.com/in/kate-ky-nguyen/"  target="_blank" style='text-decoration: none; color: #FFFFFF'><b>Ky Nguyen</b></a></p>""", unsafe_allow_html=True)
+st.markdown("""<p style= 'text-align: center;' >Powered by <b>Streamlit</b> and <b>Google Gemini AI</b> | Developed by <a href="https://www.linkedin.com/in/ky-kate-nguyen/"  target="_blank" style='text-decoration: none; color: #000000'><b>Ky Nguyen</b></a></p>""", unsafe_allow_html=True)
 
